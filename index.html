@@ -2,14 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الطبق الشاهد - الإقامة الجامعية</title>
+    <title>الطبق الشاهد - 4 بطاقات A4</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Arial', 'Traditional Arabic', sans-serif;
+            font-family: Arial, sans-serif;
         }
 
         body {
@@ -21,314 +20,333 @@
             padding: 20px;
         }
 
-        /* صفحة A4 */
+        /* ورقة A4 بالأبعاد الدقيقة */
         .a4-page {
             width: 210mm;
             height: 297mm;
             background: white;
-            padding: 6mm;
+            padding: 10mm;
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
-            gap: 0; /* مسافة 0 مم بين البطاقات */
-            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+            gap: 0; /* مسافة صفر بين البطاقات */
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
         }
 
-        /* تصميم البطاقة */
-        .ticket {
-            border: 1.5px solid #000;
-            padding: 14px 18px;
+        /* البطاقات متلاصقة تماماً عبر جدول الشبكة */
+        .card {
+            border: 1px solid #000;
+            padding: 15px 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background: #fff;
-            margin: -0.75px; /* دمج الحدود المتقاطعة لمنع تضاعف السمك */
+            margin-right: -1px;
+            margin-bottom: -1px;
         }
 
-        /* الرأس والعناوين */
+        /* قسم الرأس والعناوين */
         .header {
             text-align: center;
-            margin-bottom: 6px;
             line-height: 1.4;
+            margin-bottom: 10px;
         }
 
-        .header h2 {
-            font-size: 22px;
+        .header .title {
+            font-size: 20px;
             font-weight: bold;
-            text-decoration: underline;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
-        .header p {
-            font-size: 16px;
+        .header .subtitle {
+            font-size: 15px;
             font-weight: bold;
         }
 
-        /* أسطر المحتوى */
-        .content-line {
+        /* قسم الوجبة والمربعات */
+        .section-row {
             display: flex;
             align-items: center;
             margin-bottom: 8px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
+        }
+
+        .meal-title {
+            text-decoration: underline;
+            margin-left: 15px;
         }
 
         .checkboxes {
             display: flex;
-            gap: 20px;
-            margin-right: 15px;
+            gap: 15px;
+            align-items: center;
         }
 
         .checkbox-item {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 16px;
+            gap: 5px;
         }
 
-        .checkbox-box {
+        .box {
             width: 16px;
             height: 16px;
             border: 1.5px solid #000;
             display: inline-block;
         }
 
-        .dotted-line {
-            border-bottom: 1.5px dotted #000;
-            flex-grow: 1;
-            margin-right: 8px;
-            height: 18px;
-        }
-
-        /* قسم التوقيعات */
-        .signatures {
-            margin-top: 10px;
+        /* التواريخ والمكونات */
+        .date-row {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
             font-size: 15px;
             font-weight: bold;
         }
 
-        .signatures-row {
+        .dotted-line {
+            border-bottom: 1px dotted #000;
+            flex-grow: 1;
+            margin-top: 12px;
+            margin-bottom: 6px;
+        }
+
+        /* قسم التوقيعات المطابق للصورة */
+        .signatures {
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .sig-top {
             display: flex;
             justify-content: space-between;
-            width: 100%;
+            margin-bottom: 25px;
         }
 
-        .sig-box {
+        .sig-bottom {
             text-align: center;
+            margin-bottom: 10px;
         }
 
-        /* زر الطباعة وإعدادات A4 للطباعة */
+        /* إعدادات الطباعة A4 */
         @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
             body {
-                background: none;
+                background: white;
                 padding: 0;
             }
             .a4-page {
                 box-shadow: none;
                 width: 210mm;
                 height: 297mm;
-                padding: 5mm;
+                padding: 8mm;
             }
-            .no-print {
+            .print-btn {
                 display: none;
             }
         }
 
         .print-btn {
             position: fixed;
-            top: 15px;
-            left: 15px;
-            padding: 12px 24px;
-            background: #007bff;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
-            z-index: 9999;
         }
     </style>
 </head>
 <body>
 
-    <button class="print-btn no-print" onclick="window.print()">طباعة الصفحة (A4)</button>
+    <button class="print-btn" onclick="window.print()">طباعة (A4)</button>
 
     <div class="a4-page">
         <!-- بطاقة 1 -->
-        <div class="ticket">
-            <div class="header">
-                <h2>الطبق الشاهد</h2>
-                <p>مديرية الخدمات الجامعية ميلة</p>
-                <p>الإقامة الجامعية حيور عمار</p>
-                <p>المطعم المدمج</p>
-                <p>مصلحة الإطعام</p>
-            </div>
-            
-            <div class="content-line">
-                <span>الوجبة:</span>
-                <div class="checkboxes">
-                    <div class="checkbox-item"><span class="checkbox-box"></span> فطور</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> غداء</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> عشاء</div>
+        <div class="card">
+            <div>
+                <div class="header">
+                    <div class="title">الطبق الشاهد</div>
+                    <div class="subtitle">مديرية الخدمات الجامعية ميلة</div>
+                    <div class="subtitle">الإقامة الجامعية حيور عمار</div>
+                    <div class="subtitle">المطعم المدمج</div>
+                    <div class="subtitle">مصلحة الإطعام</div>
                 </div>
-            </div>
 
-            <div class="content-line">
-                <span>تاريخ الوجبة:</span>
-                <span class="dotted-line"></span>
-            </div>
+                <div class="section-row">
+                    <span class="meal-title">الوجبة:</span>
+                    <div class="checkboxes">
+                        <div class="checkbox-item"><span class="box"></span> فطور</div>
+                        <div class="checkbox-item"><span class="box"></span> غداء</div>
+                        <div class="checkbox-item"><span class="box"></span> عشاء</div>
+                    </div>
+                </div>
 
-            <div class="content-line">
-                <span>مكونات الوجبة:</span>
-                <span class="dotted-line"></span>
-            </div>
-            <div class="content-line">
-                <span class="dotted-line"></span>
+                <div class="date-row">
+                    <span>تاريخ الوجبة:</span>
+                    <span>............ / ......... / .............</span>
+                </div>
+
+                <div class="section-row" style="margin-bottom: 0;">
+                    <span style="text-decoration: underline;">مكونات الوجبة:</span>
+                </div>
+                <div class="dotted-line"></div>
+                <div class="dotted-line"></div>
+                <div class="dotted-line"></div>
             </div>
 
             <div class="signatures">
-                <div class="signatures-row">
-                    <div class="sig-box"><p>رئيس الطباخين</p></div>
-                    <div class="sig-box"><p>رئيس وحدة الإطعام</p></div>
+                <div class="sig-top">
+                    <span>رئيس الطباخين</span>
+                    <span>رئيس وحدة الإطعام</span>
                 </div>
-                <div class="signatures-row" style="justify-content: center;">
-                    <div class="sig-box"><p>رئيس مصلحة الإطعام</p></div>
+                <div class="sig-bottom">
+                    <span>رئيس مصلحة الإطعام</span>
                 </div>
             </div>
         </div>
 
         <!-- بطاقة 2 -->
-        <div class="ticket">
-            <div class="header">
-                <h2>الطبق الشاهد</h2>
-                <p>مديرية الخدمات الجامعية ميلة</p>
-                <p>الإقامة الجامعية حيور عمار</p>
-                <p>المطعم المدمج</p>
-                <p>مصلحة الإطعام</p>
-            </div>
-            
-            <div class="content-line">
-                <span>الوجبة:</span>
-                <div class="checkboxes">
-                    <div class="checkbox-item"><span class="checkbox-box"></span> فطور</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> غداء</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> عشاء</div>
+        <div class="card">
+            <div>
+                <div class="header">
+                    <div class="title">الطبق الشاهد</div>
+                    <div class="subtitle">مديرية الخدمات الجامعية ميلة</div>
+                    <div class="subtitle">الإقامة الجامعية حيور عمار</div>
+                    <div class="subtitle">المطعم المدمج</div>
+                    <div class="subtitle">مصلحة الإطعام</div>
                 </div>
-            </div>
 
-            <div class="content-line">
-                <span>تاريخ الوجبة:</span>
-                <span class="dotted-line"></span>
-            </div>
+                <div class="section-row">
+                    <span class="meal-title">الوجبة:</span>
+                    <div class="checkboxes">
+                        <div class="checkbox-item"><span class="box"></span> فطور</div>
+                        <div class="checkbox-item"><span class="box"></span> غداء</div>
+                        <div class="checkbox-item"><span class="box"></span> عشاء</div>
+                    </div>
+                </div>
 
-            <div class="content-line">
-                <span>مكونات الوجبة:</span>
-                <span class="dotted-line"></span>
-            </div>
-            <div class="content-line">
-                <span class="dotted-line"></span>
+                <div class="date-row">
+                    <span>تاريخ الوجبة:</span>
+                    <span>............ / ......... / .............</span>
+                </div>
+
+                <div class="section-row" style="margin-bottom: 0;">
+                    <span style="text-decoration: underline;">مكونات الوجبة:</span>
+                </div>
+                <div class="dotted-line"></div>
+                <div class="dotted-line"></div>
+                <div class="dotted-line"></div>
             </div>
 
             <div class="signatures">
-                <div class="signatures-row">
-                    <div class="sig-box"><p>رئيس الطباخين</p></div>
-                    <div class="sig-box"><p>رئيس وحدة الإطعام</p></div>
+                <div class="sig-top">
+                    <span>رئيس الطباخين</span>
+                    <span>رئيس وحدة الإطعام</span>
                 </div>
-                <div class="signatures-row" style="justify-content: center;">
-                    <div class="sig-box"><p>رئيس مصلحة الإطعام</p></div>
+                <div class="sig-bottom">
+                    <span>رئيس مصلحة الإطعام</span>
                 </div>
             </div>
         </div>
 
         <!-- بطاقة 3 -->
-        <div class="ticket">
-            <div class="header">
-                <h2>الطبق الشاهد</h2>
-                <p>مديرية الخدمات الجامعية ميلة</p>
-                <p>الإقامة الجامعية حيور عمار</p>
-                <p>المطعم المدمج</p>
-                <p>مصلحة الإطعام</p>
-            </div>
-            
-            <div class="content-line">
-                <span>الوجبة:</span>
-                <div class="checkboxes">
-                    <div class="checkbox-item"><span class="checkbox-box"></span> فطور</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> غداء</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> عشاء</div>
+        <div class="card">
+            <div>
+                <div class="header">
+                    <div class="title">الطبق الشاهد</div>
+                    <div class="subtitle">مديرية الخدمات الجامعية ميلة</div>
+                    <div class="subtitle">الإقامة الجامعية حيور عمار</div>
+                    <div class="subtitle">المطعم المدمج</div>
+                    <div class="subtitle">مصلحة الإطعام</div>
                 </div>
-            </div>
 
-            <div class="content-line">
-                <span>تاريخ الوجبة:</span>
-                <span class="dotted-line"></span>
-            </div>
+                <div class="section-row">
+                    <span class="meal-title">الوجبة:</span>
+                    <div class="checkboxes">
+                        <div class="checkbox-item"><span class="box"></span> فطور</div>
+                        <div class="checkbox-item"><span class="box"></span> غداء</div>
+                        <div class="checkbox-item"><span class="box"></span> عشاء</div>
+                    </div>
+                </div>
 
-            <div class="content-line">
-                <span>مكونات الوجبة:</span>
-                <span class="dotted-line"></span>
-            </div>
-            <div class="content-line">
-                <span class="dotted-line"></span>
+                <div class="date-row">
+                    <span>تاريخ الوجبة:</span>
+                    <span>............ / ......... / .............</span>
+                </div>
+
+                <div class="section-row" style="margin-bottom: 0;">
+                    <span style="text-decoration: underline;">مكونات الوجبة:</span>
+                </div>
+                <div class="dotted-line"></div>
+                <div class="dotted-line"></div>
+                <div class="dotted-line"></div>
             </div>
 
             <div class="signatures">
-                <div class="signatures-row">
-                    <div class="sig-box"><p>رئيس الطباخين</p></div>
-                    <div class="sig-box"><p>رئيس وحدة الإطعام</p></div>
+                <div class="sig-top">
+                    <span>رئيس الطباخين</span>
+                    <span>رئيس وحدة الإطعام</span>
                 </div>
-                <div class="signatures-row" style="justify-content: center;">
-                    <div class="sig-box"><p>رئيس مصلحة الإطعام</p></div>
+                <div class="sig-bottom">
+                    <span>رئيس مصلحة الإطعام</span>
                 </div>
             </div>
         </div>
 
         <!-- بطاقة 4 -->
-        <div class="ticket">
-            <div class="header">
-                <h2>الطبق الشاهد</h2>
-                <p>مديرية الخدمات الجامعية ميلة</p>
-                <p>الإقامة الجامعية حيور عمار</p>
-                <p>المطعم المدمج</p>
-                <p>مصلحة الإطعام</p>
-            </div>
-            
-            <div class="content-line">
-                <span>الوجبة:</span>
-                <div class="checkboxes">
-                    <div class="checkbox-item"><span class="checkbox-box"></span> فطور</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> غداء</div>
-                    <div class="checkbox-item"><span class="checkbox-box"></span> عشاء</div>
+        <div class="card">
+            <div>
+                <div class="header">
+                    <div class="title">الطبق الشاهد</div>
+                    <div class="subtitle">مديرية الخدمات الجامعية ميلة</div>
+                    <div class="subtitle">الإقامة الجامعية حيور عمار</div>
+                    <div class="subtitle">المطعم المدمج</div>
+                    <div class="subtitle">مصلحة الإطعام</div>
                 </div>
-            </div>
 
-            <div class="content-line">
-                <span>تاريخ الوجبة:</span>
-                <span class="dotted-line"></span>
-            </div>
+                <div class="section-row">
+                    <span class="meal-title">الوجبة:</span>
+                    <div class="checkboxes">
+                        <div class="checkbox-item"><span class="box"></span> فطور</div>
+                        <div class="checkbox-item"><span class="box"></span> غداء</div>
+                        <div class="checkbox-item"><span class="box"></span> عشاء</div>
+                    </div>
+                </div>
 
-            <div class="content-line">
-                <span>مكونات الوجبة:</span>
-                <span class="dotted-line"></span>
-            </div>
-            <div class="content-line">
-                <span class="dotted-line"></span>
+                <div class="date-row">
+                    <span>تاريخ الوجبة:</span>
+                    <span>............ / ......... / .............</span>
+                </div>
+
+                <div class="section-row" style="margin-bottom: 0;">
+                    <span style="text-decoration: underline;">مكونات الوجبة:</span>
+                </div>
+                <div class="dotted-line"></div>
+                <div class="dotted-line"></div>
+                <div class="dotted-line"></div>
             </div>
 
             <div class="signatures">
-                <div class="signatures-row">
-                    <div class="sig-box"><p>رئيس الطباخين</p></div>
-                    <div class="sig-box"><p>رئيس وحدة الإطعام</p></div>
+                <div class="sig-top">
+                    <span>رئيس الطباخين</span>
+                    <span>رئيس وحدة الإطعام</span>
                 </div>
-                <div class="signatures-row" style="justify-content: center;">
-                    <div class="sig-box"><p>رئيس مصلحة الإطعام</p></div>
+                <div class="sig-bottom">
+                    <span>رئيس مصلحة الإطعام</span>
                 </div>
             </div>
         </div>
+
     </div>
 
 </body>
